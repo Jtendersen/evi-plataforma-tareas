@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Tablero de tareas</title>
+  </head>
+  <body>
+    <h1>COSAS PARA HACER</h1>
+
+    <form class="marco formulario" id="formulario">
+      <input class="input" id="titulo" type="text" placeholder="Tarea a agregar" maxlength="200" required />
+      <input class="input" id="responsable" type="text" placeholder="Responsable" maxlength="60" />
+      <select class="input" id="prioridad">
+        <option value="Baja">Prioridad baja</option>
+        <option value="Media" selected>Prioridad media</option>
+        <option value="Alta">Prioridad alta</option>
+      </select>
+      <button class="boton-agregar" type="submit" aria-label="Agregar tarea">+</button>
+    </form>
+
+    <p class="reporte" id="reporte"></p>
+    <p class="aviso" id="aviso" hidden></p>
+
+    <main class="tablero">
+      <section class="marco columna" data-estado="ToDo">
+        <h2>Por hacer</h2>
+        <div class="lista"></div>
+      </section>
+      <section class="marco columna" data-estado="Doing">
+        <h2>En curso</h2>
+        <div class="lista"></div>
+      </section>
+      <section class="marco columna" data-estado="Done">
+        <h2>Hecho</h2>
+        <div class="lista"></div>
+      </section>
+    </main>
+
+    <footer class="footer"><small>Juan M. Tierno &copy; To Do List 2022</small></footer>
+    <script src="app.js"></script>
+  </body>
+</html>

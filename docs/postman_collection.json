@@ -1,0 +1,110 @@
+{
+  "info": {
+    "name": "API de tareas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://127.0.0.1:3000" },
+    { "key": "tareaId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/health" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('200 y estado ok', () => {",
+        "  pm.response.to.have.status(200);",
+        "  pm.expect(pm.response.json().estado).to.eql('ok');",
+        "});"
+      ] } }]
+    },
+    {
+      "name": "Crear tarea",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tareas",
+        "body": { "mode": "raw", "raw": "{\n  \"titulo\": \"Preparar informe\",\n  \"responsable\": \"Ana\",\n  \"prioridad\": \"Alta\"\n}" }
+      },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('201 y estado inicial ToDo', () => {",
+        "  pm.response.to.have.status(201);",
+        "  const t = pm.response.json();",
+        "  pm.expect(t.estado).to.eql('ToDo');",
+        "  pm.collectionVariables.set('tareaId', t.id);",
+        "});"
+      ] } }]
+    },
+    {
+      "name": "Listar tareas",
+      "request": { "method": "GET", "url": "{{baseUrl}}/tareas" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('200 y arreglo', () => {",
+        "  pm.response.to.have.status(200);",
+        "  pm.expect(pm.response.json()).to.be.an('array');",
+        "});"
+      ] } }]
+    },
+    {
+      "name": "Filtrar por estado",
+      "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/tareas?estado=Doing", "host": ["{{baseUrl}}"], "path": ["tareas"], "query": [{ "key": "estado", "value": "Doing" }] } },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('200 y todas en Doing', () => {",
+        "  pm.response.to.have.status(200);",
+        "  pm.response.json().forEach((t) => pm.expect(t.estado).to.eql('Doing'));",
+        "});"
+      ] } }]
+    },
+    {
+      "name": "Obtener tarea",
+      "request": { "method": "GET", "url": "{{baseUrl}}/tareas/{{tareaId}}" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('200', () => pm.response.to.have.status(200));"
+      ] } }]
+    },
+    {
+      "name": "Mover a Doing",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tareas/{{tareaId}}",
+        "body": { "mode": "raw", "raw": "{\n  \"estado\": \"Doing\"\n}" }
+      },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('200 y estado Doing', () => {",
+        "  pm.response.to.have.status(200);",
+        "  pm.expect(pm.response.json().estado).to.eql('Doing');",
+        "});"
+      ] } }]
+    },
+    {
+      "name": "Estado invalido (error esperado)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/tareas/{{tareaId}}",
+        "body": { "mode": "raw", "raw": "{\n  \"estado\": \"Terminado\"\n}" }
+      },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('400 por estado inválido', () => pm.response.to.have.status(400));"
+      ] } }]
+    },
+    {
+      "name": "Reporte",
+      "request": { "method": "GET", "url": "{{baseUrl}}/reporte" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('200 y total numérico', () => {",
+        "  pm.response.to.have.status(200);",
+        "  pm.expect(pm.response.json().total).to.be.a('number');",
+        "});"
+      ] } }]
+    },
+    {
+      "name": "Eliminar tarea",
+      "request": { "method": "DELETE", "url": "{{baseUrl}}/tareas/{{tareaId}}" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('204', () => pm.response.to.have.status(204));"
+      ] } }]
+    }
+  ]
+}
