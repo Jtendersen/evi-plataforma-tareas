@@ -38,8 +38,8 @@ Los servicios se comunican por nombre (`api`, `db`) dentro de la red `backend`. 
 ## Despliegue
 
 ```bash
-git clone <URL-DEL-REPOSITORIO>
-cd <carpeta-del-repositorio>
+git clone https://github.com/Jtendersen/evi-plataforma-tareas.git
+cd evi-plataforma-tareas
 cp .env.example .env
 ```
 
