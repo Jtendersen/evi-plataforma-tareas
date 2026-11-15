@@ -86,13 +86,13 @@ Estados válidos: `ToDo`, `Doing`, `Done`. Prioridades: `Baja`, `Media`, `Alta`.
 - **Recuperación:** el volumen no es un respaldo, porque vive en la misma máquina. Para respaldar:
 
 ```bash
-./scripts/backup.sh
-./scripts/restore.sh backups/tareas_AAAAMMDD_HHMMSS.sql
+bash scripts/backup.sh
+bash scripts/restore.sh backups/tareas_AAAAMMDD_HHMMSS.sql
 ```
 
 `backup.sh` genera un `.sql` en `backups/` (excluido de git). `restore.sh` lo carga en la base del stack activo y reemplaza la tabla `tareas`. Para recuperar en otra computadora: levantar el stack, copiar el `.sql` y ejecutar `restore.sh`.
 
-Los scripts usan `sh` y `docker compose`; en Windows se ejecutan desde Git Bash.
+Los scripts usan `sh` y `docker compose`. En Windows hace falta Git for Windows (incluye `bash`) y se pueden ejecutar desde PowerShell o Git Bash con `bash scripts/...`; ejecutar `./scripts/backup.sh` en PowerShell abre el diálogo "¿con qué abrir el archivo?" en lugar de correrlo.
 
 ## Solución de problemas
 
