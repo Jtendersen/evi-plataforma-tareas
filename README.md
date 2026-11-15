@@ -92,7 +92,7 @@ bash scripts/restore.sh backups/tareas_AAAAMMDD_HHMMSS.sql
 
 `backup.sh` genera un `.sql` en `backups/` (excluido de git). `restore.sh` lo carga en la base del stack activo y reemplaza la tabla `tareas`. Para recuperar en otra computadora: levantar el stack, copiar el `.sql` y ejecutar `restore.sh`.
 
-Los scripts usan `sh` y `docker compose`. En Windows hace falta Git for Windows (incluye `bash`) y se pueden ejecutar desde PowerShell o Git Bash con `bash scripts/...`; ejecutar `./scripts/backup.sh` en PowerShell abre el diálogo "¿con qué abrir el archivo?" en lugar de correrlo.
+Los scripts usan `sh` y `docker compose`, y validan que el archivo sea un dump de PostgreSQL. En Windows hay que ejecutarlos desde **Git Bash** (viene con Git for Windows; clic derecho en la carpeta del proyecto, "Open Git Bash here"). Desde PowerShell no conviene: `./scripts/backup.sh` abre el diálogo "¿con qué abrir el archivo?", y `bash scripts/backup.sh` puede abrir WSL (Linux dentro de Windows), que no tiene Docker y falla con `The command 'docker' could not be found in this WSL 2 distro`.
 
 ## Solución de problemas
 
