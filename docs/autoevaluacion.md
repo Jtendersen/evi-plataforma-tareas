@@ -8,7 +8,7 @@ Fecha: 15/11/2026. Se marca el nivel que hoy se puede sostener con evidencia, no
 | Persistencia y recuperación | Logrado | Medir la recuperación con más datos para Destacado |
 | Red y exposición | Logrado | Probar el acceso desde otro equipo para Destacado |
 | Seguridad básica | Destacado | Nada pendiente |
-| Evidencias y bitácora | En proceso | Agregar las capturas del despliegue al repositorio |
+| Evidencias y bitácora | Logrado | Sumar la trazabilidad de la devolución cuando exista (V2) |
 | Uso documentado de la IA | Logrado | Nada pendiente |
 | Transferencia | Sin nivel todavía | Depende de la prueba en otra PC |
 
@@ -21,6 +21,7 @@ Fecha: 15/11/2026. Se marca el nivel que hoy se puede sostener con evidencia, no
 ## Persistencia y recuperación: Logrado
 
 - **Evidencia:** conservación: `down` y `up` sin `-v`, volumen `tareas_db_data` intacto y datos idénticos byte a byte. Recuperación: `backup.sh`, y `restore.sh` en un proyecto paralelo con otro volumen y otros puertos, con la secuencia de ids continuando (siguiente id 5). Se distingue conservar (volumen) de recuperar (backup).
+- **Capturas:** `docs/evidencias/05` y `06` (conservación) y `08`, `09` y `10` (backup, eliminación de una tarea, restauración y tarea recuperada tras recargar).
 - **Elementos de Destacado ya presentes:** medición (330 ms), qué datos se pueden perder (lo posterior al último backup), límites del respaldo (mismo disco, sin cifrar, manual) y mejoras posibles, en `docs/decisiones.md`.
 - **Salvedad:** la medición es sobre 3 filas, y el "otro entorno" fue la misma computadora. Para sostener Destacado conviene repetirla con más filas y en otra PC.
 
@@ -34,10 +35,10 @@ Fecha: 15/11/2026. Se marca el nivel que hoy se puede sostener con evidencia, no
 - **Evidencia:** `.env.example` ficticio; `.env` en `.gitignore`; se verificó que ninguna clave real está en el historial de git ni en archivos versionados. Datos de prueba. Servicios sin root (API `node`, web `nginx`, Adminer sin privilegios; PostgreSQL arranca como root para inicializar y el servidor corre como `postgres`).
 - **Riesgos abiertos con mitigaciones:** vulnerabilidades de las imágenes de terceros (análisis con Trivy antes y después), falta de autenticación y de TLS, respaldo sin cifrar. Todo en `docs/decisiones.md`.
 
-## Evidencias y bitácora: En proceso
+## Evidencias y bitácora: Logrado
 
-- **Evidencia:** `docs/bitacora.md` con dos decisiones, autoría y prueba propia con esperado, observado y conclusión.
-- **Por qué no es Logrado:** falta incluir en el repositorio la evidencia del despliegue (capturas) que pide la consigna, y la trazabilidad de la devolución a V2 todavía no existe, porque aún no hubo devolución.
+- **Evidencia:** `docs/bitacora.md` con dos decisiones, autoría y prueba propia con esperado, observado y conclusión. Capturas en `docs/evidencias/`: tablero (01), las dos pruebas de la bitácora (02 y 03), servicios `healthy` (04), persistencia antes y después de `down`/`up` (05 y 06), Adminer (07) y el ciclo de backup, eliminación y restauración (08 a 10).
+- **Pendiente:** la trazabilidad de la devolución a V2 no puede existir todavía, porque aún no hubo devolución.
 
 ## Uso documentado de la IA: Logrado
 
