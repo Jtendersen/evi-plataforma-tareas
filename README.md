@@ -2,6 +2,10 @@
 
 Tablero Kanban (Por hacer / En curso / Hecho) para que los empleados de una pyme carguen tareas, vean su estado y obtengan un reporte simple. Es un trabajo práctico de Entornos Virtualizados (UTN Santa Fe): el foco es la arquitectura con contenedores, la persistencia y la reproducibilidad del despliegue.
 
+## Origen del proyecto
+
+Parte de una lista de tareas que armé en 2022 con HTML, CSS y JavaScript, sin backend ni base de datos: https://jtendersentodolist.netlify.app/. Para este trabajo la retomé, la actualicé y la dockericé: agregué una API, PostgreSQL con persistencia, estados de tarea (tablero Kanban) y la orquestación con Docker Compose, para darle el contexto de una plataforma interna de una pyme.
+
 ## Arquitectura
 
 ```mermaid
