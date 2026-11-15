@@ -8,21 +8,9 @@ Parte de una lista de tareas que armé en 2022 con HTML, CSS y JavaScript, sin b
 
 ## Arquitectura
 
-```mermaid
-flowchart LR
-  N([Navegador]) -->|127.0.0.1:8082| WEB
-  C([curl / Postman]) -->|127.0.0.1:3000| API
-  D([DBeaver]) -->|127.0.0.1:5440| DB
-  A([Navegador]) -->|127.0.0.1:8081| ADM
+![Diagrama de arquitectura](docs/arquitectura.png)
 
-  subgraph red["Red Docker: backend"]
-    WEB["web<br/>nginx :8080"] -->|"/api/ → :3000"| API["api<br/>Node + Express :3000"]
-    API -->|":5432"| DB[("db<br/>PostgreSQL 16")]
-    ADM["adminer :8080"] -->|":5432"| DB
-  end
-
-  DB --- VOL[("Volumen db_data")]
-```
+El código fuente del diagrama está en [docs/arquitectura.mmd](docs/arquitectura.mmd).
 
 | Servicio | Imagen | Función |
 |---|---|---|

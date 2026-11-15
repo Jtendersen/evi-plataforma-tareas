@@ -1,0 +1,21 @@
+flowchart LR
+  subgraph host["Equipo host (puertos en 127.0.0.1)"]
+    N(["Navegador"])
+    C(["curl / Postman"])
+    D(["DBeaver"])
+  end
+  subgraph red["Red Docker: backend"]
+    WEB["web - nginx :8080"]
+    API["api - Node + Express :3000"]
+    DB[("db - PostgreSQL 16")]
+    ADM["adminer :8080"]
+  end
+  VOL[("Volumen db_data")]
+  N -->|"8082"| WEB
+  N -->|"8081"| ADM
+  C -->|"3000"| API
+  D -->|"5440"| DB
+  WEB -->|"/api/ a :3000"| API
+  API -->|"5432"| DB
+  ADM -->|"5432"| DB
+  DB --- VOL
